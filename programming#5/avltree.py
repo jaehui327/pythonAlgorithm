@@ -116,6 +116,7 @@ for i in range (N):
     if result == -1 or result != s_key[i]: print("탐색오류")
 end_time = time.time() - start_time
 
+print(key)
 for i in range (1, N + 1):
     result=d.check(i)
     print('key: ', i, ', parents: ', result)
