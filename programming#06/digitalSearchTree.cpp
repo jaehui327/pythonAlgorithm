@@ -1,11 +1,12 @@
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
+#include <algorithm>
 
 using namespace std;
 
 const int maxb = 4;
-const int N = 7;
+const int N = 15000;
 
 class bitskey
 {
@@ -62,8 +63,7 @@ bitskey Dict::search(bitskey v)
 	return x->key;
 }
 
-void Dict::check(bitskey v)
-{
+void Dict::check(bitskey v) {
 	struct node* x;
 	x = head;
 	bitskey parent_key = x->key;
@@ -76,7 +76,6 @@ void Dict::check(bitskey v)
 	}
 	cout << "key : " << v.get();
 	cout << ", parent: " << parent_key.get() << endl;
-	
 }
 
 void Dict::insert(bitskey v)
@@ -130,33 +129,40 @@ int main()
 	Dict d;
 	int i;
 	double start_time;
-	int key[N + 1] = { 0, 1, 19, 5, 18, 3, 26, 9 };
-	int search_key[N + 1] = { 0, 1, 3, 5, 9, 18, 19, 26 };
+//    int key[N + 1] = { 0, 1, 19, 5, 18, 3, 26, 9 };
+//    int search_key[N + 1] = { 0, 1, 3, 5, 9, 18, 19, 26 };
+    int key[N + 1] = {};
+    int search_key[N + 1] = {};
 
-	// init(key, search_key);
+    reverse(search_key, search_key + N);
+    
+     init(key, search_key);
 	for (i = 1; i <= N; i++) {
 		bitskey tmp;
 		tmp = key[i];
 		d.insert(tmp);
 	}
 
+    /*
 	cout << "[";
 	for (i = 1; i < N + 1; i++) {
 		if (i == N)
 			cout << key[i] << ']' << endl;
 		else
-			cout << key[i] << ",";
+			cout << key[i] << ", ";
 	}
-
+     */
+    
 	start_time = clock();
 	for (i = 1; i <= N; i++) {
 		bitskey search_tmp;
 		search_tmp = search_key[i];
 		// d.search(search_tmp);
-		d.check(search_tmp);
+//        d.check(search_tmp);
 	}
-	cout << "µðÁöÅÐ Å½»ö Æ®¸®ÀÇ ½ÇÇà ½Ã°£ (N = " << N << ") : " <<
-		clock() - start_time << endl;
-	cout << "Å½»ö ¿Ï·á" << endl;
+//    cout << "Execution time of digital search tree (N = " << N << ") : " <<
+    cout << "Execution time of digital search tree (N = " << N << ") (reverse) : " <<
+    clock() - start_time << endl;
+    cout << "Search completed." << endl;
 	return 0;
 }
