@@ -63,19 +63,19 @@ bitskey Dict::search(bitskey v)
 }
 
 void Dict::check(bitskey v){
-    struct node* p;
-    struct node* x;
+    struct node *p, *x;
     p = head;
     x = head->l;
     bitskey parent_key = x->key;
     while (p->b > x->b) {
         p = x;
         parent_key = x->key;
-        if (bits(v, x->b, 1)) x = x->r;
-        else x = x->l;
+        x = (bits(v,x->b,1))? x->r : x->l;
     }
-    cout << "key : " << v.get();
-    cout << " , parent: " << parent_key.get() << endl;
+    if (v.get() == x->key.get()){
+        cout << "key : " << v.get();
+        cout << " , parent: " << parent_key.get() << endl;
+    }
 }
 
 void Dict::insert(bitskey v)
@@ -135,9 +135,9 @@ int main()
     int i;
     double start_time;
     // int key[N + 1], search_key[N + 1];
+//    init(key, search_key);
     int key[N + 1] = { 0, 1, 19, 5, 18, 3, 26, 9 };
     int search_key[N + 1] = { 0, 1, 3, 5, 9, 18, 19, 26 };
-    // init(key, search_key);
     for (i = 1; i <= N; i++) {
         bitskey tmp;
         tmp = key[i];
@@ -156,7 +156,7 @@ int main()
     for (i = 1; i <= N; i++) {
         bitskey search_tmp;
         search_tmp = search_key[i];
-        // d.search(search_tmp);
+        d.search(search_tmp);
         d.check(search_tmp);
     }
     cout << "패트리샤 트리의 실행 시간 (N = " << N << ") : " <<
