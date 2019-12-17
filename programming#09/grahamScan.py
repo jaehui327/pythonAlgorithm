@@ -1,5 +1,4 @@
-# 이거 문디
-import geo as g
+importgeo as g
 
 def ccw(p0, p1, p2):
     dx1 = p1.x - p0.x
@@ -56,7 +55,8 @@ N = 16
 p = []
 p.append(g.point(0, 0, None))
 for i in range(N):
+    # 여기서 안된대
     p.append(g.point(g.x_vaule[i], g.y_value[i], g.c_vaule[i]))
 M = grahamScan(p, N)
 for i in range(1, M + 1):
-    print(p[i].c, end='')
+    print(p[i].c, end=' ')

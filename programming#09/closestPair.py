@@ -1,4 +1,3 @@
-# 이거 문디 진자
 import geo as g
 import math
 
@@ -11,7 +10,7 @@ def comp(t):
     if t_pass == 1:
         return t.p.x
     else:
-        return t.p.x
+        return t.p.y
 
 def merge(a, b):
     c = z

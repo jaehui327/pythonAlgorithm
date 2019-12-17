@@ -1,4 +1,4 @@
-# import 할 수 없다는디요
+# import 할 수 없다는디
 import geo as g
 
 def theta(p1, p2):
@@ -43,4 +43,6 @@ for i in range(N):
 p.append(g.point(None, None, None))
 M = packageWrapping(p, N)
 for i in range(M + 1):
-    print(p[i].c, end='')
+    print(p[i].c, end=' ')
+    # 원하는 결과: N K L B M F A P
+    # 나오는 결과: N K L B M F A
