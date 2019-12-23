@@ -1,11 +1,12 @@
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
+#include <algorithm>
 
 using namespace std;
 
 const int maxb = 14;
-const int N = 7;
+const int N = 25000;
 
 class bitskey
 { private:
@@ -134,16 +135,16 @@ int main()
     Dict d;
     int i;
     double start_time;
-    // int key[N + 1], search_key[N + 1];
-//    init(key, search_key);
-    int key[N + 1] = { 0, 1, 19, 5, 18, 3, 26, 9 };
-    int search_key[N + 1] = { 0, 1, 3, 5, 9, 18, 19, 26 };
+     int key[N + 1], search_key[N + 1];
+    init(key, search_key);
+//    int key[N + 1] = { 0, 1, 19, 5, 18, 3, 26, 9 };
+//    int search_key[N + 1] = { 0, 1, 3, 5, 9, 18, 19, 26 };
     for (i = 1; i <= N; i++) {
         bitskey tmp;
         tmp = key[i];
         d.insert(tmp);
     }
-    
+    /*
     cout << "[";
     for (i = 1; i < N + 1; i++) {
         if (i == N)
@@ -151,13 +152,17 @@ int main()
         else
             cout << key[i] << ", ";
     }
+    */
+    
+    // 역순 정렬
+    reverse(search_key, search_key + N);
     
     start_time = clock();
     for (i = 1; i <= N; i++) {
         bitskey search_tmp;
         search_tmp = search_key[i];
         d.search(search_tmp);
-        d.check(search_tmp);
+//        d.check(search_tmp);
     }
     cout << "패트리샤 트리의 실행 시간 (N = " << N << ") : " <<
     clock() - start_time << endl;

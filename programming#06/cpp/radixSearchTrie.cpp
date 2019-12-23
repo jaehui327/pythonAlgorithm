@@ -1,6 +1,8 @@
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
+#include <algorithm>
+
 using namespace std;
 const int maxb = 5;
 const int N = 7;
@@ -41,10 +43,12 @@ private:
     node *insertR(node * h, bitskey v, int d);
     node *split(node *p, node *q, int d);
     bitskey searchR(node * h, bitskey v, int d);
+    bitskey checkR(node* h,bitskey v, int d);
 public:
     Dict() { head = 0; head_check = false; itemMin = 0; }
     void insert(bitskey v) { insertR(head, v, maxb - 1); }
     bitskey search(bitskey v) { return searchR(head, v, maxb - 1); }
+    bitskey check(bitskey v) { return checkR(head, v, maxb - 1); }
 };
 node *Dict::insertR(node * h, bitskey v, int d)
 {
@@ -90,6 +94,27 @@ bitskey Dict::searchR(node* h, bitskey v, int d)
         else return searchR(h->r, v, d - 1);
     }
 }
+
+bitskey Dict::checkR(node* h, bitskey v,int d) {
+    if (h == 0) return itemMin;
+    if (h->external) {
+        if (v.get() == h->key.get()) {
+            return  v;
+        }
+        return v = -1;
+    }
+    else {
+        if (v.bits(d, 1) == 0) {
+             cout << "left" << ' ';
+            return checkR(h->l, v, d - 1);
+        }
+        else {
+            cout << "right" << ' ';
+            return checkR(h->r, v, d - 1);
+        }
+    }
+}
+
 void init(int key[], int search_key[])
 {
     int i, index, temp[N + 1];
@@ -120,12 +145,16 @@ int main()
     double start_time;
     int key[N + 1] = { 0, 1, 19, 5, 18, 3, 26, 9 };
     int search_key[N + 1] = { 0, 1, 3, 5, 9, 18, 19, 26 };
-    // init(key, search_key);
+//    int key[N + 1] = {};
+//    int search_key[N + 1] = {};
+//    init(key, search_key);
+//    reverse(search_key, search_key + N);
     for (i = 1; i <= N; i++) {
         bitskey tmp;
         tmp = key[i];
         d.insert(tmp);
     }
+    
     
     cout << "[";
     for (i = 1; i <= N; i++) {
@@ -134,15 +163,20 @@ int main()
     }
     cout << "]" << endl;
     
+    
     start_time = clock();
     for (i = 1; i <= N; i++) {
         bitskey search_tmp;
         search_tmp = search_key[i];
-        d.search(search_tmp);
-        // d.check(search_tmp);
+//        c_l = 0; c_r = 0;
+        cout << search_tmp.get() <<' ';
+//        d.search(search_tmp);
+        d.check(search_tmp);
+        cout << '\n';
     }
-    cout << "Execution time of radix search trie (N = " << N << ") : " <<
+//    cout << "Execution time of radix search trie (N = " << N << ") : " <<
+    cout << "기수 탐색 트라이의 실행 시간 (N = " << N << ") : " <<
     clock() - start_time << endl;
-    cout << "Search completed." << endl;
+    cout << "탐색 완료" << endl;
     return 0;
 }
